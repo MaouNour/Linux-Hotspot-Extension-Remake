@@ -4,6 +4,7 @@
   "description": "A Hotspot Extension That connects to Linux Hotspot GTK App and allow direct usage from gnome-shell and advanced monitoring , it allows the user to use Hotspot Access Point with wifi both at the same time.",
   "shell-version": ["48", "49", "50"],
   "settings-schema": "org.gnome.shell.extensions.advanced-gnome-hotspot",
-  "url": "",
+  "url": "https://github.com/MaouNour/Linux-Hotspot-Extension-Remake",
+
   "version": 1
 }
