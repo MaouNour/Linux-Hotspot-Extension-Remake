@@ -193,7 +193,8 @@ export const HotspotIndicator = GObject.registerClass(class HotspotIndicator ext
         this.quickSettingsItems.push(new HotspotMenuToggle(extensionObject));
     }
     destroy() {
-        this._settings?.unbind(this._indicator, 'visible');
+        if (this._indicator)
+            Gio.Settings.unbind(this._indicator, 'visible');
         this.quickSettingsItems.forEach(item => item.destroy());
         this.quickSettingsItems = [];
         this._settings = null;
