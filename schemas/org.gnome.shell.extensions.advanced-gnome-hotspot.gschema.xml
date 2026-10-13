@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <schema
-        id="org.gnome.shell.extensions.test-maounour"
-        path="/org/gnome/shell/extensions/test-maounour/">
+        id="org.gnome.shell.extensions.advanced-gnome-hotspot"
+        path="/org/gnome/shell/extensions/advanced-gnome-hotspot/">
 
         <key name="hotspot-quickmenu-enabled" type="b">
             <default>false</default>
