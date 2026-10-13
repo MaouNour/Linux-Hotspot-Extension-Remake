@@ -5,6 +5,10 @@
   "shell-version": ["48", "49", "50"],
   "settings-schema": "org.gnome.shell.extensions.advanced-gnome-hotspot",
   "url": "https://github.com/MaouNour/Linux-Hotspot-Extension-Remake",
-
+  "donations": {
+    "github": "MaouNour",
+    "buymeacoffee": "maounournar",
+    "custom": ["https://app.paymento.io/payment-link/8240031082a34883be8866108e71eec0"]
+  },
   "version": 1
 }
