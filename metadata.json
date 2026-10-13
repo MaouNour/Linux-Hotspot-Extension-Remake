@@ -1,0 +1,9 @@
+{
+  "uuid": "advanced-gnome-hotspot@maounour",
+  "name": "Advanced Gnome Hotspot",
+  "description": "A Hotspot Extension That connects to Linux Hotspot GTK App and allow direct usage from gnome-shell and advanced monitoring , it allows the user to use Hotspot Access Point with wifi both at the same time.",
+  "shell-version": ["48", "49", "50"],
+  "settings-schema": "org.gnome.shell.extensions.advanced-gnome-hotspot",
+  "url": "",
+  "version": 1
+}

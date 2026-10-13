@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema
+        id="org.gnome.shell.extensions.test-maounour"
+        path="/org/gnome/shell/extensions/test-maounour/">
+
+        <key name="hotspot-quickmenu-enabled" type="b">
+            <default>false</default>
+            <summary>Enable the feature</summary>
+            <description>Controls the visibility of the indicator.</description>
+        </key>
+
+    </schema>
+</schemalist>
