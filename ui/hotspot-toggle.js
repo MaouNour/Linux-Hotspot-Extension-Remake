@@ -34,7 +34,7 @@ const HotspotMenuToggle = GObject.registerClass(class HotspotMenuToggle extends 
         this.menu.addMenuItem(this._infoSection);
         // Add an entry-point for more settings
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.menu.connect('open-state-changed', (_menu, isOpen) => {
+        this._menuOpenId = this.menu.connect('open-state-changed', (_menu, isOpen) => {
             if (isOpen) {
                 this._syncStatus();
                 this._refreshTimer = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 2, () => {
@@ -55,13 +55,14 @@ const HotspotMenuToggle = GObject.registerClass(class HotspotMenuToggle extends 
         settingsItem.visible = Main.sessionMode.allowSettings;
         this.menu._settingsActions[extensionObject.uuid] = settingsItem;
         this._commandRunning = false;
-        this.connect('clicked', () => {
+        this.clickedId = this.connect('clicked', () => {
             this.runCommand([this.checked ? 'enable' : 'disable'], () => this._syncStatus());
         });
-        this.menu.connect('open-state-changed', (_menu, isOpen) => {
-            if (isOpen)
-                this._syncStatus();
-        });
+        this._quickSettingsOpenId =
+            Main.panel.statusArea.quickSettings.menu.connect('open-state-changed', (_menu, isOpen) => {
+                if (isOpen)
+                    this._syncStatus();
+            });
     }
     _syncStatus() {
         if (this._refreshing)
@@ -154,8 +155,29 @@ const HotspotMenuToggle = GObject.registerClass(class HotspotMenuToggle extends 
         });
     }
     destroy() {
-        if (this._refreshTimer)
+        if (this._refreshTimer) {
             GLib.source_remove(this._refreshTimer);
+            this._refreshTimer = 0;
+        }
+        if (this._menuOpenId) {
+            this.menu.disconnect(this._menuOpenId);
+            this._menuOpenId = 0;
+        }
+        if (this._clickedId) {
+            this.disconnect(this._clickedId);
+            this._clickedId = 0;
+        }
+        if (this._quickSettingsOpenId) {
+            Main.panel.statusArea.quickSettings.menu.disconnect(this._quickSettingsOpenId);
+            this._quickSettingsOpenId = 0;
+        }
+        this._devices.clear();
+        this._devices = null;
+        this._deviceCount = null;
+        this._deviceSection = null;
+        this._infoSection = null;
+        this._usage = null;
+        this._uptime = null;
         super.destroy();
     }
 });
@@ -171,7 +193,11 @@ export const HotspotIndicator = GObject.registerClass(class HotspotIndicator ext
         this.quickSettingsItems.push(new HotspotMenuToggle(extensionObject));
     }
     destroy() {
+        this._settings?.unbind(this._indicator, 'visible');
         this.quickSettingsItems.forEach(item => item.destroy());
+        this.quickSettingsItems = [];
+        this._settings = null;
+        this._indicator = null;
         super.destroy();
     }
 });
